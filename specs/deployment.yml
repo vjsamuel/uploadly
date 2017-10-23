@@ -16,7 +16,7 @@ spec:
         run: uploadly
     spec:
       containers:
-      - image: gcr.io/cloud-project-1-182204/fileservice:1.0.11
+      - image: gcr.io/cloud-project-1-182204/uploadly:1.0.0
         name: service
         ports:
         - containerPort: 8080

@@ -12,7 +12,6 @@ exports.subscribe = function subscribe (event, callback) {
     const pubsubMessage = event.data;
 
     // We're just going to log the message to prove that it worked!
-    console.log(pubsubMessage.attributes.name, pubsubMessage.attributes.profile);
     const file = storage.bucket("cloud-project-1").file(pubsubMessage.attributes.profile + "/" + pubsubMessage.attributes.name);
     const stream = file.createWriteStream({
         metadata:{
