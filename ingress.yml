@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: uploadly
+  namespace: project
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "uploadly"
+    kubernetes.io/ingress.allow-http: "false"
+spec:
+  tls:
+  - secretName: uploadly-cert
+  backend:
+    serviceName: uploadly
+    servicePort: 8080
+  rules:
+  - host: uploadly.vjsamuel.me
+    http:
+      paths:
+      - backend: 
+          serviceName: uploadly
+          servicePort: 8080

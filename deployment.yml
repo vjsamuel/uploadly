@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: uploadly
+  name: uploadly
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: uploadly
+  template:
+    metadata:
+      labels:
+        run: uploadly
+    spec:
+      containers:
+      - image: gcr.io/cloud-project-1-182204/fileservice:1.0.11
+        name: service
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: uploadly-config
