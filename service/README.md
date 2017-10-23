@@ -50,6 +50,8 @@ memcached &
  * Click on "Create credentials" and on the drop down "service account key".
  * Select the service account and click on create. This will download a json file which can be saved in `service/token.json`
 
+### Running the application
+
 * Export the following environment variables:
 
 ```

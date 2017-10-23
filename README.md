@@ -1,5 +1,4 @@
 # upload.ly
--
 
 |Name | Detail|
 |---|---|
@@ -13,7 +12,7 @@
 Have you ever wanted a simple interface to manage your files on the cloud? Have you ever wanted to play with several cloud technologies? If you have answered *YES* to both then lets talk about **upload.ly**. Upload.ly is a tool that leverages various cloud technologies on Google Cloud Platform to provide a simple, yet powerful experience.
 
 ### Features:
---
+---
 
 
 * **API Driven** - Upload.ly provides simple REST APIs through which files can be managed.
@@ -25,7 +24,7 @@ Have you ever wanted a simple interface to manage your files on the cloud? Have 
 * **Responsive** - The user experience is built on angular.js and provides a responsive experience out of the box. Hence upload.ly is also mobile friendly
 
 ### Technologies Used:
---
+---
 *  **Google Cloud Platform** - GCP provides the entire infrastructure for powering upload.ly
  *  **Google Container Engine** - Google's implementation of Kubernetes on which upload.ly is deployed. 
  *  **Google AppEngine Flex** - The newer version of AppEngine built on containers (we use this only to build our containers to work well with GCP offerings).
@@ -168,3 +167,139 @@ Now the entire application has been deployed and the DNS needs to be configured.
 * Click on "Add record set" in the new Cloud DNS Zone and add the static IP that was created to a domain name of choice like `uploadly.<domain>` as an **A record**. Save it and wait for teh DNS to do the required replication.
 
 This will help you be all set to start using upload.ly on your own cloud account!
+
+## API Spec
+
+Endpoint: [https://uploadly.vjsamuel.me/api/v1](https://uploadly.vjsamuel.me/api/v1)
+
+All requests must pass a header `X-CloudProject-Token`. It is a google account access token that can be generated [here](https://developers.google.com/oauthplayground/)
+
+* Type in `profile` in Authorize APIs and click the button
+* Sign in in the following prompt
+* Click on "Exchange Authorization code for tokens"
+* Copy `id_token` in the obtained response and pass it as the value of `X-CloudProject-Token` header. 
+
+### Upload/Update a file
+
+```
+Path: /files
+Method: POST|PUT
+Content-Type: multipart/form-data
+
+Accepted form inputs:
+file: file
+description: text
+```
+
+|Response Code | Comment|
+|---|---|
+| 202| Input file was accepted|
+|403| Unauthorized. Please provide an X-CloudProject-Token with the request headers|
+|500| Internal server error. Please try again|
+|400| File size is greater than 10 MB|
+
+Sample Response: N/A
+
+### Get list of files
+
+```
+Path: /files
+Method: GET
+Content-Type: application/json
+
+```
+
+|Response Code | Comment|
+|---|---|
+| 200| Success|
+|403| Unauthorized. Please provide an X-CloudProject-Token with the request headers|
+|500| Internal server error. Please try again|
+
+Sample Response: 
+
+```
+[
+	{
+		"file": "Eiffel.jpg",
+		"upload_time": "2017-10-21T00:26:23.695627Z",
+		"last_modified": "2017-10-23T03:59:48.858025Z",
+		"version": 2,
+		"size": 60317,
+		"type": "image/jpeg",
+		"description": "updated"
+	},
+	{
+		"file": "decoded.jpeg",
+		"upload_time": "2017-10-23T16:49:10.259336Z",
+		"last_modified": "2017-10-23T16:49:10.259336Z",
+		"version": 1,
+		"size": 60326,
+		"type": "image/jpeg",
+		"description": "this is a test"
+	}
+
+```
+
+### Get File
+
+```
+Path: /file/{file}
+Method: GET
+
+```
+
+|Response Code | Comment|
+|---|---|
+| 200| Success|
+|403| Unauthorized. Please provide an X-CloudProject-Token with the request headers|
+|500| Internal server error. Please try again|
+
+Sample Response: File requested
+
+
+### Get File Info
+
+```
+Path: /file/{file}/info
+Method: GET
+Content-Type: application/json
+
+```
+
+|Response Code | Comment|
+|---|---|
+| 200| Success|
+|403| Unauthorized. Please provide an X-CloudProject-Token with the request headers|
+|500| Internal server error. Please try again|
+
+Sample Response: 
+
+```
+{
+	"file": "decoded.jpeg",
+	"upload_time": "2017-10-23T16:49:10.259336Z",
+	"last_modified": "2017-10-23T16:49:10.259336Z",
+	"version": 1,
+	"size": 60326,
+	"type": "image/jpeg",
+	"description": "this is a test"
+}
+```
+
+### Delete File
+
+```
+Path: /file/{file}
+Method: DELETE
+
+```
+
+|Response Code | Comment|
+|---|---|
+| 200| Successful deletion|
+|403| Unauthorized. Please provide an X-CloudProject-Token with the request headers|
+|500| Internal server error. Please try again|
+
+Sample Response: N/A
+
+
