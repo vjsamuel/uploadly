@@ -2,9 +2,11 @@
 
 |Name | Detail|
 |---|---|
-| University | [San Jose State University](http://www.sjsu.edu/)|
-| Couse | [Cloud Technologies](http://info.sjsu.edu/web-dbgen/catalog/courses/CMPE281.html)|
+| University | [San Jose State University](http://www.sjsu.edu/) |
+| Course | [Cloud Technologies](http://info.sjsu.edu/web-dbgen/catalog/courses/CMPE281.html)|
 |Professor| [Sanjay Garje](https://www.linkedin.com/in/sanjaygarje/) |
+|ISA|[Divyankitha Urs](https://www.linkedin.com/in/divyankithaurs/) |
+|Student| [Vijay Samuel](https://www.linkedin.com/in/vjsamuel/) |
 
 
 ## Introduction
