@@ -9,7 +9,7 @@
 
 ## Introduction
 
-Have you ever wanted a simple interface to manage your files on the cloud? Have you ever wanted to play with several cloud technologies? If you have answered *YES* to both then lets talk about **upload.ly**. Upload.ly is a tool that leverages various cloud technologies on Google Cloud Platform to provide a simple, yet powerful experience.
+Have you ever wanted a simple interface to manage your files on the cloud? Have you ever wanted to play with several cloud technologies? If you have answered **YES** to both then lets talk about [**upload.ly**](https://uploadly.vjsamuel.me). Upload.ly is a tool that leverages various cloud technologies on Google Cloud Platform to provide a simple, yet powerful experience.
 
 ### Features:
 ---
@@ -54,8 +54,12 @@ Following are the pre-requisites for deploying upload.ly on your own:
 * Create a Google API Console project and client ID using this [reference](https://developers.google.com/identity/sign-in/web/devconsole-project).
  * In the Authorized Javascript origins section of your sign-in console provide all origins of choice. It is best to also provide `http://localhost:8080` so that local development is easier.
 * On the API console enable APIs of all of the above mentioned cloud technologies. 
-* Create a bucket on Cloud storage with a name of choice.
-* Using the same bucket name, create a topic on PubSub.
+* Create a bucket on Cloud storage with a name of choice. Bucket creation can be done as described here[here](https://cloud.google.com/storage/docs/creating-buckets). Create a multi-regional bucket for highest performance.
+* Click on "None" next on the lifecycle column and set the following rules:
+ * Age = 75 -> Move to Nearline
+ * Age = 365 -> Move to Coldline
+ * Age = 730 -> Delete
+* Using the same bucket name, create a topic on PubSub as described [here](https://cloud.google.com/pubsub/docs/admin#pubsub-create-topic-gcloud).
 * Follow the procedure in the [functions README](function/README.md) to have the function deployed.
 
 
@@ -132,6 +136,12 @@ kubectl create -f specs/configmap.yml
 ```
 kubectl create -f specs/deployment.yml
 kubectl create -f specs/service.yml
+```
+
+* Enable autoscaling as per scale requirements using:
+
+```
+kubectl autoscale deployment uploadly -n project --min=1 --max=2 --cpu-percent=90
 ```
 
 * To run the application in insecure mode(on port 80) the Ingress spec for the same can be deployed as:
