@@ -206,7 +206,6 @@ Sample Response: N/A
 Path: /files
 Method: GET
 Content-Type: application/json
-
 ```
 
 |Response Code | Comment|
@@ -245,7 +244,6 @@ Sample Response:
 ```
 Path: /file/{file}
 Method: GET
-
 ```
 
 |Response Code | Comment|
@@ -263,7 +261,6 @@ Sample Response: File requested
 Path: /file/{file}/info
 Method: GET
 Content-Type: application/json
-
 ```
 
 |Response Code | Comment|
@@ -303,3 +300,31 @@ Method: DELETE
 Sample Response: N/A
 
 
+## Screenshots
+
+### REST APIs
+---
+
+#### Get Files
+ 
+![alt text](images/get-files.png)
+
+#### Get File
+![alt text](images/get-file.png)
+
+#### Get File Info
+![alt text](images/get-file-info.png)
+
+### UI
+
+#### Homepage
+![alt text](images/upload-home.png)
+
+#### Upload UI
+![alt text](images/upload-ui.png)
+
+#### My Uploads
+![alt text](images/list-files.png)
+
+#### Delete File
+![alt text](images/delete-file.png)
